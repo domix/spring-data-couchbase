@@ -23,6 +23,17 @@
     <springdata.commons>1.6.0.BUILD-SNAPSHOT</springdata.commons>
   </properties>
 
+  <distributionManagement>
+  	<repository>
+     <id>sindicatomd</id>
+     <url>http://repo.sindica.to/nexus/content/repositories/public-milestones/</url>
+  	</repository>
+  	<snapshotRepository>
+     <id>sindicatomd</id>
+     <url>http://repo.sindica.to/nexus/content/repositories/public-milestones/</url>
+  	</snapshotRepository>
+</distributionManagement>
+
   <dependencies>
 
     <dependency>
@@ -103,5 +114,44 @@
       <url>http://repository.springsource.com/maven/bundles/release/</url>
     </pluginRepository>
   </pluginRepositories>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.7</version>
+				<executions>
+					<execution>
+						<id>default-deploy</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.3</version>
+				<executions>
+					<execution>
+						<id>default-deploy</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<serverId>sindicatomd</serverId>
+					<nexusUrl>http://repo.sindica.to/nexus/content/repositories/public-milestones/</nexusUrl>
+					<skipStaging>true</skipStaging>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+  
 
 </project>
